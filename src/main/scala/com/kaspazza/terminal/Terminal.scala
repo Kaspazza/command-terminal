@@ -8,8 +8,11 @@ import com.kaspazza.files.Directory
 object Terminal extends App {
 
   val root = Directory.ROOT
-  io.Source.stdin.getLines().foldLeft(State(root, root))((currentState, newLine) => {
-    currentState.show
-    Command.from(newLine).apply(currentState)
+  val initialState = State(root, root)
+  initialState.show
+  io.Source.stdin.getLines().foldLeft(initialState)((currentState, newLine) => {
+    val newState = Command.from(newLine).apply(currentState)
+    newState.show
+    newState
   })
 }
