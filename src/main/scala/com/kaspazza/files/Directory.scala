@@ -1,5 +1,7 @@
 package com.kaspazza.files
 
+import com.kaspazza.terminal.FileException
+
 import scala.annotation.tailrec
 
 class Directory(override val parentPath: String, override val name: String, val contents: List[DirEntry]) extends DirEntry(parentPath, name) {
@@ -27,6 +29,8 @@ class Directory(override val parentPath: String, override val name: String, val 
     else findEntry(path.head).asDirectory.findDescendant(path.tail)
 
   def asDirectory: Directory = this
+
+  def asFile: File = throw new FileException("A directory cannot be converted to a file")
 
   def getType: String = "Directory"
 }
