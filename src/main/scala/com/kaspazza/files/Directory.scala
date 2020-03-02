@@ -1,7 +1,19 @@
 package com.kaspazza.files
 
 class Directory(override val parentPath: String, override val name: String, val contents: List[DirEntry]) extends DirEntry(parentPath, name) {
+  def replaceEntry(entryName: String, newEntry: DirEntry): Directory = ???
 
+  def findEntry(entryName: String): DirEntry = ???
+
+  def addEntry(newEntry: Directory): Directory = ???
+
+  def hasEntry(name: String): Boolean = ???
+
+  def getAllFoldersInPath: List[String] = path.substring(1).split(Directory.SEPARATOR).toList
+
+  def findDescendant(path: List[String]): Directory = ???
+
+  def asDirectory: Directory = this
 }
 
 object Directory {
