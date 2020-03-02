@@ -17,7 +17,7 @@ class Directory(override val parentPath: String, override val name: String, val 
     findEntryHelper(entryName, contents)
   }
 
-  def addEntry(newEntry: Directory): Directory =
+  def addEntry(newEntry: DirEntry): Directory =
     new Directory(parentPath, name, contents :+ newEntry)
 
   def hasEntry(name: String): Boolean = findEntry(name) != null

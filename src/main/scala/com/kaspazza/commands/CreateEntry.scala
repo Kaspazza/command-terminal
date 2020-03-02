@@ -7,7 +7,7 @@ abstract class CreateEntry(name: String) extends Command {
   def checkIllegal(name: String): Boolean = name.contains(".")
 
   def createEntry(state: State, name: String): State = {
-    def updateStructure(directory: Directory, path: List[String], newEntry: Directory): Directory = {
+    def updateStructure(directory: Directory, path: List[String], newEntry: DirEntry): Directory = {
       if (path.isEmpty) directory.addEntry(newEntry)
       else {
         val oldEntry = directory.findEntry(path.head)
@@ -17,14 +17,14 @@ abstract class CreateEntry(name: String) extends Command {
 
     val workingDirectory = state.workingDirectory
     val allDirsInPath = workingDirectory.getAllFoldersInPath
-    val newEntry: DirEntry = createSpecificEntry(state, name)
-    val newRoot = updateStructure(state.root, allDirsInPath, newEntry.asDirectory)
+    val newEntry: DirEntry = createSpecificEntry(state)
+    val newRoot = updateStructure(state.root, allDirsInPath, newEntry)
     val newWorkingDirectory = newRoot.findDescendant(allDirsInPath)
 
     State(newRoot, newWorkingDirectory)
   }
 
-  def createSpecificEntry(state: State, entryName: String): DirEntry
+  def createSpecificEntry(state: State): DirEntry
 
   override def apply(state: State): State = {
     val workingDirectory = state.workingDirectory
