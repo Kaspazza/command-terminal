@@ -27,6 +27,8 @@ class Directory(override val parentPath: String, override val name: String, val 
     else findEntry(path.head).asDirectory.findDescendant(path.tail)
 
   def asDirectory: Directory = this
+
+  def getType: String = "Directory"
 }
 
 object Directory {
