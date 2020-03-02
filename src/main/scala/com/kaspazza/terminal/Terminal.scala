@@ -2,11 +2,14 @@ package com.kaspazza.terminal
 
 import java.util.Scanner
 
-object Terminal extends App {
-  val scanner = new Scanner(System.in)
+import com.kaspazza.commands.Command
+import com.kaspazza.files.Directory
 
-  while(true){
-    print("$ ")
-    println(scanner.nextLine())
-  }
+object Terminal extends App {
+
+  val root = Directory.ROOT
+  io.Source.stdin.getLines().foldLeft(State(root, root))((currentState, newLine) => {
+    currentState.show
+    Command.from(newLine).apply(currentState)
+  })
 }
