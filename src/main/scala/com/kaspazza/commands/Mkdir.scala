@@ -12,7 +12,7 @@ class Mkdir(name: String) extends Command {
       if (path.isEmpty) directory.addEntry(newEntry)
       else {
         val oldEntry = directory.findEntry(path.head)
-        directory.replaceEntry(oldEntry.name, updateStructure(oldEntry, path.tail, newEntry))
+        directory.replaceEntry(oldEntry.name, updateStructure(oldEntry.asDirectory, path.tail, newEntry))
       }
     }
 
@@ -34,7 +34,7 @@ class Mkdir(name: String) extends Command {
     } else if (checkIllegal(name)) {
       state.setMessage(name + ": illegal entry name!")
     } else {
-      doMkdir(name)
+      doMkdir(state, name)
     }
   }
 }
