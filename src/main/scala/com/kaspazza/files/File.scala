@@ -3,6 +3,10 @@ package com.kaspazza.files
 import com.kaspazza.terminal.FileException
 
 class File(override val parentPath: String, override val name: String, contents: String) extends DirEntry(parentPath, name){
+  def setContents(newContents: String): File = new File(parentPath, name, newContents)
+
+  def appendContents(newContents: String): File = setContents(contents + "\n" + newContents)
+
   override def asDirectory: Directory = throw new FileException("A file cannot be converted to a directory")
 
   override def getType: String = "File"
